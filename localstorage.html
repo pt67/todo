@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Localstorage | Test</title>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+<style>
+.todolist{
+width:18rem;
+margin:auto;
+}
+.manager{
+display:flex;
+justify-content:space-between;
+}
+#newItem{
+border:1px solid #0ff;
+padding:5px;
+}
+
+#add{
+border:1px solid #0ff;
+padding:5px;
+background:#0ff;
+}
+
+#myUl{
+width:18rem;
+margin:auto;
+}
+#myUl li{
+display:flex;
+justify-content:space-between;
+background:#0ff;
+margin:5px 0px;
+padding:10px;
+}
+
+#myUl button{
+background:red;
+color:#fff;
+border:1px solid red;
+cursor:pointer;
+}
+
+</style>
+<div class="todolist">
+<h1>Save Items</h1>
+<div class="manager">
+<input id="newItem" value=""/><button id="add" onclick="add();">Add item</button>
+</div>
+<p id="myUl"></p>
+</div>
+<script type="text/javascript">
+
+
+var ul = document.getElementById("myUl");
+
+function add() {
+  var item = document.getElementById("newItem").value;
+  var itemTxt = document.createTextNode(item);
+  var li = document.createElement("li");
+  var btn = document.createElement("button");
+  var btnx = document.createTextNode("x");
+  btn.setAttribute("onclick", "remove()");
+  btn.appendChild(btnx);
+  li.appendChild(itemTxt);
+  li.appendChild(btn);
+  ul.appendChild(li);
+  localStorage["list"] = ul.innerHTML // updating localstorage
+}
+
+function remove() {
+  var task = this.event.currentTarget.parentNode;
+  ul.removeChild(task);
+  localStorage["list"] = ul.innerHTML // updating localstorage
+}
+
+if (localStorage["list"]) { // checking, if there is something in localstorage
+  ul.innerHTML = localStorage["list"];
+}
+
+	
+
+
+</script>
+</body>
+</html>
